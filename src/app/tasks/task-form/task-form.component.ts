@@ -28,10 +28,14 @@ export class TaskFormComponent implements OnInit {
     }
   }
   
-  onSubmit() {
-    this.taskService.save(this.task).subscribe(() => {
-      console.log(this.task);
-      this.router.navigate(['']);
-    });
+  onSubmit(form: any) {
+  if (form.invalid) {
+    form.control.markAllAsTouched(); // força mostrar erros
+    return;
   }
+
+  this.taskService.save(this.task).subscribe(() => {
+    this.router.navigate(['']);
+  });
+}
 }
